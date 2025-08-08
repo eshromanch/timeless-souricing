@@ -1,26 +1,99 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Primary Colors */
+    --primary: 220 70% 50%;        /* Professional Blue */
+    --primary-foreground: 210 20% 98%;
+    
+    /* Secondary Colors */
+    --secondary: 160 60% 45%;      /* Trust Green */
+    --secondary-foreground: 160 20% 98%;
+    
+    /* Accent Colors */
+    --accent: 25 95% 55%;          /* Warm Orange */
+    --accent-foreground: 25 20% 98%;
+    
+    /* Neutral Colors */
+    --neutral-light: 210 20% 95%; /* Light Gray for backgrounds */
+    --neutral-medium: 215 15% 65%; /* Medium Gray for text */
+    --neutral-dark: 220 15% 25%;   /* Dark Gray for headings */
+    
+    /* System Colors */
+    --background: 0 0% 100%;
+    --foreground: 220 15% 25%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 15% 25%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 25%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 220 70% 50%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 15% 45%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 220 15% 25%;
+    --foreground: 210 20% 98%;
+    --card: 220 15% 25%;
+    --card-foreground: 210 20% 98%;
+    --popover: 220 15% 25%;
+    --popover-foreground: 210 20% 98%;
+    --border: 215 15% 65%;
+    --input: 215 15% 65%;
+    --ring: 220 70% 50%;
+    --muted: 215 15% 65%;
+    --muted-foreground: 215 15% 65%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    @apply bg-white text-gray-900;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent;
+  }
+  
+  .hero-gradient {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .fade-in-section {
+    @apply opacity-0 animate-in duration-700;
+  }
+  
+  .slide-in-section {
+    @apply opacity-0 animate-in slide-in-from-left duration-700;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
