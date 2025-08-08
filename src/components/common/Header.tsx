@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 import Navigation from './Navigation';
+import { Drawer, DrawerContent, DrawerHeader, DrawerClose } from '@/components/ui/drawer';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,7 +14,6 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -78,36 +78,39 @@ export default function Header() {
             {/* Mobile menu button */}
             <button
               className="lg:hidden p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
             >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
+              <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t">
-          <div className="container mx-auto px-4 py-4">
-            <nav className="flex flex-col space-y-4">
-              <Navigation />
-            </nav>
-            <div className="flex flex-col space-y-2 mt-4 pt-4 border-t">
-              <Button variant="outline" size="sm" className="w-full">
-                Get Quote
-              </Button>
-              <Button size="sm" className="w-full">
-                Contact Us
-              </Button>
-            </div>
+      {/* Mobile Drawer */}
+      <Drawer open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen} direction="right">
+        <DrawerContent className="w-80 max-w-full ml-auto rounded-l-lg shadow-lg">
+          <DrawerHeader className="flex justify-between items-center border-b pb-2 mb-4">
+            <span className="font-bold text-lg">Menu</span>
+            <DrawerClose asChild>
+              <button aria-label="Close menu">
+                <X className="w-6 h-6" />
+              </button>
+            </DrawerClose>
+          </DrawerHeader>
+          <nav className="px-4">
+            <Navigation vertical />
+          </nav>
+          <div className="flex flex-col space-y-2 mt-6 px-4">
+            <Button variant="outline" size="sm" className="w-full">
+              Get Quote
+            </Button>
+            <Button size="sm" className="w-full">
+              Contact Us
+            </Button>
           </div>
-        </div>
-      )}
+        </DrawerContent>
+      </Drawer>
     </header>
   );
-} 
+}

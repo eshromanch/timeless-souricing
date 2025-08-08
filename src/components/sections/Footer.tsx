@@ -12,40 +12,13 @@ import {
   Facebook,
   Instagram
 } from 'lucide-react';
-
-const quickLinks = [
-  { name: 'About Us', href: '#about' },
-  { name: 'Our Services', href: '#services' },
-  { name: 'Product Categories', href: '#products' },
-  { name: 'Why Choose Us', href: '#why-choose-us' },
-  { name: 'Our Clients', href: '#clients' },
-  { name: 'Testimonials', href: '#testimonials' },
-  { name: 'Contact Us', href: '#contact' },
-];
-
-const services = [
-  'Product Sourcing',
-  'Manufacturing Support',
-  'Quality Assurance',
-  'Logistics & Shipping',
-  'Compliance & Certification',
-  'Sourcing Consulting',
-];
-
-const productCategories = [
-  "Men's Wear",
-  "Women's Wear",
-  "Kids' Wear",
-  'Activewear & Sportswear',
-  'Underwear & Lingerie',
-  'Fashion Accessories',
-];
-
-const socialMedia = [
-  { name: 'LinkedIn', icon: Linkedin, href: 'https://linkedin.com/company/timeless-sourcing' },
-  { name: 'Facebook', icon: Facebook, href: 'https://facebook.com/timelesssourcing' },
-  { name: 'Instagram', icon: Instagram, href: 'https://instagram.com/timelesssourcing' },
-];
+import { 
+  quickLinks, 
+  servicesList, 
+  productCategories, 
+  socialMedia,
+} from '@/data/footerData';
+import { certifications } from '@/data/certifications';
 
 export default function Footer() {
   return (
@@ -134,7 +107,7 @@ export default function Footer() {
           >
             <h4 className="text-lg font-semibold mb-4">Our Services</h4>
             <ul className="space-y-2">
-              {services.map((service) => (
+              {servicesList.map((service) => (
                 <li key={service}>
                   <span className="text-gray-300 text-sm">
                     {service}
@@ -198,7 +171,13 @@ export default function Footer() {
             <span className="text-sm text-gray-400">Follow us:</span>
             <div className="flex space-x-3">
               {socialMedia.map((social) => {
-                const Icon = social.icon;
+                let Icon;
+                switch(social.icon) {
+                  case 'Linkedin': Icon = Linkedin; break;
+                  case 'Facebook': Icon = Facebook; break;
+                  case 'Instagram': Icon = Instagram; break;
+                  default: Icon = null;
+                }
                 return (
                   <a
                     key={social.name}
@@ -207,7 +186,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center hover:bg-primary transition-colors"
                   >
-                    <Icon className="w-4 h-4" />
+                    {Icon && <Icon className="w-4 h-4" />}
                   </a>
                 );
               })}
@@ -226,7 +205,7 @@ export default function Footer() {
           <div className="text-center">
             <h5 className="text-sm font-medium mb-4 text-gray-300">Certifications</h5>
             <div className="flex flex-wrap justify-center gap-3">
-              {['ISO 9001', 'WRAP', 'BSCI', 'OEKO-TEX', 'GOTS'].map((cert) => (
+              {certifications.map((cert) => (
                 <Badge key={cert} variant="outline" className="text-xs border-gray-600 text-gray-300">
                   {cert}
                 </Badge>
@@ -237,4 +216,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-} 
+}

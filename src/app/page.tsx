@@ -18,8 +18,6 @@ export default function Home() {
       <WhyChooseUs />
       <ClientsPartners />
       <Testimonials />
-      <Contact />
-      <Footer />
     </>
   );
 }

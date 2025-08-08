@@ -3,24 +3,10 @@
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, Target, Users, Award } from 'lucide-react';
 import SectionContainer from '@/components/common/SectionContainer';
+import {achievements, values} from '../../data/aboutData'
+import {certifications} from '../../data/certifications'
 
-const achievements = [
-  { value: '14+', label: 'Years Experience', icon: Award },
-  { value: '500+', label: 'Happy Clients', icon: Users },
-  { value: '25+', label: 'Countries Served', icon: Target },
-  { value: '50+', label: 'Team Members', icon: CheckCircle },
-];
-
-const values = [
-  'Quality Excellence',
-  'Customer Focus',
-  'Innovation',
-  'Sustainability',
-  'Transparency',
-  'Reliability'
-];
 
 export default function AboutUs() {
   return (
@@ -116,7 +102,7 @@ export default function AboutUs() {
           <div>
             <h3 className="text-xl font-semibold mb-4 text-primary">Certifications</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {['ISO 9001', 'WRAP', 'BSCI', 'OEKO-TEX', 'GOTS'].map((cert, index) => (
+              {certifications.map((cert, index) => (
                 <Badge key={index} variant="secondary" className="justify-center py-2">
                   {cert}
                 </Badge>
