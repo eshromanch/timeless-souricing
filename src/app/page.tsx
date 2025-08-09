@@ -7,13 +7,14 @@ import ClientsPartners from "@/components/sections/ClientsPartners";
 import Testimonials from "@/components/sections/Testimonials";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import Overview from "@/components/sections/Overview";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <AboutUs />
-      <OurServices />
+      <Overview/>
+      <OurServices isHome={true} />
       <ProductCategories />
       <WhyChooseUs />
       <ClientsPartners />

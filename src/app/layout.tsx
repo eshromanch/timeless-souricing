@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/Header";
 import Footer from "@/components/sections/Footer";
+import WhatsAppFloatButton from "@/components/common/WhatsAppFloatingButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -59,6 +60,18 @@ export default function RootLayout({
         <Header />
         <main className="pt-32">
           {children}
+          <WhatsAppFloatButton
+  phoneNumber="1234567890" 
+  message="Hello, I need help with..."
+  position="right"
+  bottomMargin="40px"
+  rightMargin="40px"
+  showText={true}
+  text="WhatsApp Us"
+  buttonSize="lg"
+  animation="bounce"
+  zIndex={100}
+/>
         </main>
          <Footer />
       </body>

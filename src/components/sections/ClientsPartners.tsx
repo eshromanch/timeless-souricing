@@ -6,8 +6,21 @@ import { Badge } from '@/components/ui/badge';
 import { Building2, Handshake } from 'lucide-react';
 import SectionContainer from '@/components/common/SectionContainer';
 import { clients, partners } from '@/data/clientsPartnersData';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
+import { useRef } from 'react';
 
 export default function ClientsPartners() {
+  // const plugin = useRef(
+  //   Autoplay({ delay: 3000, stopOnInteraction: false })
+  // );
+
   return (
     <SectionContainer id="clients" background="light">
       <motion.div
@@ -27,7 +40,7 @@ export default function ClientsPartners() {
         </p>
       </motion.div>
 
-      {/* Clients Section */}
+      {/* Clients Carousel */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -45,34 +58,47 @@ export default function ClientsPartners() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {clients.map((client, index) => (
-            <motion.div
-              key={client.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="card-hover group">
-                <CardContent className="p-6 text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
-                    <Building2 className="w-8 h-8 text-white" />
-                  </div>
-                  <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {client.name}
-                  </h4>
-                  <Badge variant="outline" className="text-xs">
-                    {client.category}
-                  </Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        <Carousel
+                plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
+          opts={{ align: "start", loop: true }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {clients.map((client, index) => (
+              <CarouselItem key={client.name} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="card-hover group h-full">
+                    <CardContent className="p-6 text-center">
+                      <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+                        <Building2 className="w-8 h-8 text-white" />
+                      </div>
+                      <h4 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                        {client.name}
+                      </h4>
+                      <Badge variant="outline" className="text-xs">
+                        {client.category}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
+        </Carousel>
       </motion.div>
 
-      {/* Partners Section */}
+      {/* Partners Carousel */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -89,31 +115,44 @@ export default function ClientsPartners() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {partners.map((partner, index) => (
-            <motion.div
-              key={partner.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <Card className="card-hover group">
-                <CardContent className="p-4 text-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-secondary to-green-600 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
-                    <Handshake className="w-6 h-6 text-white" />
-                  </div>
-                  <h4 className="font-semibold text-sm mb-1 group-hover:text-secondary transition-colors">
-                    {partner.name}
-                  </h4>
-                  <Badge variant="outline" className="text-xs">
-                    {partner.type}
-                  </Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </div>
+        <Carousel
+                plugins={[
+        Autoplay({
+          delay: 2000,
+        }),
+      ]}
+          opts={{ align: "start", loop: true }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {partners.map((partner, index) => (
+              <CarouselItem key={partner.name} className="sm:basis-1/2 md:basis-1/3 lg:basis-1/6">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  <Card className="card-hover group h-full">
+                    <CardContent className="p-4 text-center">
+                      <div className="w-12 h-12 bg-gradient-to-br from-secondary to-green-600 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                        <Handshake className="w-6 h-6 text-white" />
+                      </div>
+                      <h4 className="font-semibold text-sm mb-1 group-hover:text-secondary transition-colors">
+                        {partner.name}
+                      </h4>
+                      <Badge variant="outline" className="text-xs">
+                        {partner.type}
+                      </Badge>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-2" />
+          <CarouselNext className="right-2" />
+        </Carousel>
       </motion.div>
 
       {/* CTA Section */}

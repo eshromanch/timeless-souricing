@@ -7,7 +7,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Star, Quote } from 'lucide-react';
 import SectionContainer from '@/components/common/SectionContainer';
 import { testimonials } from '@/data/testimonialsData';
-
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
+import { useRef } from 'react';
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
@@ -25,6 +33,10 @@ const StarRating = ({ rating }: { rating: number }) => {
 };
 
 export default function Testimonials() {
+  const plugin = useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false })
+  );
+
   return (
     <SectionContainer id="testimonials">
       <motion.div
@@ -44,49 +56,58 @@ export default function Testimonials() {
         </p>
       </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {testimonials.map((testimonial, index) => (
-          <motion.div
-            key={testimonial.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            viewport={{ once: true }}
-          >
-            <Card className="card-hover h-full relative">
-              <CardContent className="p-6">
-                <div className="absolute top-4 right-4">
-                  <Quote className="w-8 h-8 text-primary/20" />
-                </div>
+      <Carousel
+        plugins={[plugin.current]}
+        opts={{ align: "start", loop: true }}
+        className="w-full mb-16"
+      >
+        <CarouselContent>
+          {testimonials.map((testimonial, index) => (
+            <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+              >
+                <Card className="card-hover h-full relative">
+                  <CardContent className="p-6">
+                    <div className="absolute top-4 right-4">
+                      <Quote className="w-8 h-8 text-primary/20" />
+                    </div>
 
-                <div className="mb-4">
-                  <StarRating rating={testimonial.rating} />
-                </div>
+                    <div className="mb-4">
+                      <StarRating rating={testimonial.rating} />
+                    </div>
 
-                <p className="text-muted-foreground mb-6 leading-relaxed">
-                  &ldquo;{testimonial.text}&rdquo;
-                </p>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                      &ldquo;{testimonial.text}&rdquo;
+                    </p>
 
-                <div className="flex items-center space-x-3">
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage src={testimonial.image} alt={testimonial.name} />
-                    <AvatarFallback className="bg-primary text-primary-foreground">
-                      {testimonial.initials}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h4 className="font-semibold text-sm">{testimonial.name}</h4>
-                    <p className="text-xs text-muted-foreground">{testimonial.company}</p>
-                    <Badge variant="outline" className="text-xs mt-1">
-                      {testimonial.country}
-                    </Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="w-12 h-12">
+                        <AvatarImage src={testimonial.image} alt={testimonial.name} />
+                        <AvatarFallback className="bg-primary text-primary-foreground">
+                          {testimonial.initials}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <h4 className="font-semibold text-sm">{testimonial.name}</h4>
+                        <p className="text-xs text-muted-foreground">{testimonial.company}</p>
+                        <Badge variant="outline" className="text-xs mt-1">
+                          {testimonial.country}
+                        </Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="left-2" />
+        <CarouselNext className="right-2" />
+      </Carousel>
 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -123,4 +144,4 @@ export default function Testimonials() {
       </motion.div>
     </SectionContainer>
   );
-} 
+}

@@ -41,14 +41,6 @@ export const services = [
     color: 'from-orange-500 to-orange-600'
   },
   {
-    id: 'compliance',
-    title: 'Compliance & Certification',
-    description: 'Ensuring all products meet international standards',
-    icon: Award,
-    features: ['Social compliance', 'Environmental standards', 'Safety certifications', 'Audit support'],
-    color: 'from-red-500 to-red-600'
-  },
-  {
     id: 'consulting',
     title: 'Sourcing Consulting',
     description: 'Strategic consulting for optimal sourcing decisions',

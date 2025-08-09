@@ -30,6 +30,7 @@ export default function WhyChooseUs() {
       </motion.div>
 
       {/* Benefits Grid */}
+{/* Benefits Grid - Fixed icon container */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {benefits.map((benefit, index) => {
           const Icon = benefit.icon;
@@ -44,7 +45,7 @@ export default function WhyChooseUs() {
               <Card className="card-hover h-full">
                 <CardContent className="p-6">
                   <div className={`w-12 h-12 rounded-lg bg-gradient-to-r ${benefit.color} flex items-center justify-center mb-4`}>
-                    <Icon className="w-6 h-6 text-white" />
+                    <Icon className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="text-xl font-semibold mb-3">{benefit.title}</h3>
                   <p className="text-muted-foreground text-sm">
@@ -87,8 +88,8 @@ export default function WhyChooseUs() {
               <Card className="card-hover border-l-4 border-l-primary">
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                      <Icon className="w-5 h-5 text-white" />
+                    <div className="w-full h-12 rounded-lg bg-gradient-to-r flex items-center justify-center mb-4">
+                      <Icon className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-semibold mb-1">{process.title}</h4>
